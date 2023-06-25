@@ -1,0 +1,23 @@
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\bin\Debug\Files Hider.exe.config
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\bin\Debug\Files Hider.exe
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\bin\Debug\Files Hider.pdb
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\bin\Debug\Microsoft.WindowsAPICodePack.dll
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.dll
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\bin\Debug\Microsoft.WindowsAPICodePack.pdb
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\bin\Debug\Microsoft.WindowsAPICodePack.xml
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\bin\Debug\Microsoft.WindowsAPICodePack.Shell.pdb
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.pdb
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.xml
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files Hider.csproj.AssemblyReference.cache
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files Hider.csproj.SuggestedBindingRedirects.cache
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files_Hider.AboutForm.resources
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files_Hider.FilesHider.resources
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files_Hider.MainForm.resources
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files_Hider.Properties.Resources.resources
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files Hider.csproj.GenerateResource.cache
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files Hider.csproj.CoreCompileInputs.cache
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files Hider.csproj.CopyComplete
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files Hider.exe
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files Hider.pdb
