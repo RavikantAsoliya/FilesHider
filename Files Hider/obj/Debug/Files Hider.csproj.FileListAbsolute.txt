@@ -12,8 +12,6 @@ D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\bin\Debu
 D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.xml
 D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files Hider.csproj.AssemblyReference.cache
 D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files Hider.csproj.SuggestedBindingRedirects.cache
-D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files_Hider.AboutForm.resources
-D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files_Hider.FilesHider.resources
 D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files_Hider.MainForm.resources
 D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files_Hider.Properties.Resources.resources
 D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files Hider.csproj.GenerateResource.cache
