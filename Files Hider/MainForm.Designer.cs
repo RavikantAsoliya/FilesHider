@@ -1,5 +1,4 @@
-﻿
-namespace Files_Hider
+﻿namespace Files_Hider
 {
     partial class MainForm
     {
@@ -31,316 +30,259 @@ namespace Files_Hider
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.panelForMainForm = new System.Windows.Forms.Panel();
-            this.panelForMiddleSeperator = new System.Windows.Forms.Panel();
-            this.panelLeft = new System.Windows.Forms.Panel();
-            this.hiddenFilesListbox = new System.Windows.Forms.ListBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.separatorOfPanelOne = new System.Windows.Forms.Label();
-            this.hiddenFilesLabel = new System.Windows.Forms.Label();
-            this.panelRight = new System.Windows.Forms.Panel();
-            this.hiddenFoldersListBox = new System.Windows.Forms.ListBox();
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addFoldersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeFoldersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.separatorOfPanelTwo = new System.Windows.Forms.Label();
-            this.hiddenFoldersLabel = new System.Windows.Forms.Label();
-            this.panelSeperator = new System.Windows.Forms.Panel();
-            this.panelForTitleBar = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.titleBar = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.panelForMainForm.SuspendLayout();
-            this.panelLeft.SuspendLayout();
+            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.backButton = new System.Windows.Forms.ToolStripButton();
+            this.forwardButton = new System.Windows.Forms.ToolStripButton();
+            this.addressBar = new System.Windows.Forms.ToolStripComboBox();
+            this.refreshButton = new System.Windows.Forms.ToolStripButton();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelFullPath = new System.Windows.Forms.ToolStripStatusLabel();
+            this.listView = new System.Windows.Forms.ListView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addFilesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.addFoldersToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.menuStrip1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
-            this.panelRight.SuspendLayout();
-            this.contextMenuStrip2.SuspendLayout();
-            this.panelForTitleBar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // panelForMainForm
+            // menuStrip1
             // 
-            this.panelForMainForm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelForMainForm.Controls.Add(this.panelForMiddleSeperator);
-            this.panelForMainForm.Controls.Add(this.panelLeft);
-            this.panelForMainForm.Controls.Add(this.panelRight);
-            this.panelForMainForm.Controls.Add(this.panelSeperator);
-            this.panelForMainForm.Controls.Add(this.panelForTitleBar);
-            this.panelForMainForm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelForMainForm.Location = new System.Drawing.Point(0, 0);
-            this.panelForMainForm.Name = "panelForMainForm";
-            this.panelForMainForm.Size = new System.Drawing.Size(667, 289);
-            this.panelForMainForm.TabIndex = 0;
+            this.menuStrip1.BackColor = System.Drawing.Color.White;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(684, 24);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // panelForMiddleSeperator
+            // fileToolStripMenuItem
             // 
-            this.panelForMiddleSeperator.BackColor = System.Drawing.Color.Black;
-            this.panelForMiddleSeperator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelForMiddleSeperator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelForMiddleSeperator.Location = new System.Drawing.Point(331, 36);
-            this.panelForMiddleSeperator.Name = "panelForMiddleSeperator";
-            this.panelForMiddleSeperator.Size = new System.Drawing.Size(2, 251);
-            this.panelForMiddleSeperator.TabIndex = 31;
-            // 
-            // panelLeft
-            // 
-            this.panelLeft.BackColor = System.Drawing.Color.White;
-            this.panelLeft.Controls.Add(this.hiddenFilesListbox);
-            this.panelLeft.Controls.Add(this.separatorOfPanelOne);
-            this.panelLeft.Controls.Add(this.hiddenFilesLabel);
-            this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelLeft.Location = new System.Drawing.Point(0, 36);
-            this.panelLeft.Margin = new System.Windows.Forms.Padding(2);
-            this.panelLeft.Name = "panelLeft";
-            this.panelLeft.Size = new System.Drawing.Size(331, 251);
-            this.panelLeft.TabIndex = 30;
-            // 
-            // hiddenFilesListbox
-            // 
-            this.hiddenFilesListbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.hiddenFilesListbox.ContextMenuStrip = this.contextMenuStrip1;
-            this.hiddenFilesListbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hiddenFilesListbox.FormattingEnabled = true;
-            this.hiddenFilesListbox.Location = new System.Drawing.Point(0, 21);
-            this.hiddenFilesListbox.Margin = new System.Windows.Forms.Padding(2);
-            this.hiddenFilesListbox.Name = "hiddenFilesListbox";
-            this.hiddenFilesListbox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.hiddenFilesListbox.Size = new System.Drawing.Size(331, 230);
-            this.hiddenFilesListbox.TabIndex = 3;
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addFilesToolStripMenuItem,
-            this.removeFilesToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(144, 48);
+            this.addFoldersToolStripMenuItem,
+            this.removeToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
             // 
             // addFilesToolStripMenuItem
             // 
             this.addFilesToolStripMenuItem.Name = "addFilesToolStripMenuItem";
-            this.addFilesToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.addFilesToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.addFilesToolStripMenuItem.Text = "Add Files";
             this.addFilesToolStripMenuItem.Click += new System.EventHandler(this.AddFilesToolStripMenuItem_Click);
-            // 
-            // removeFilesToolStripMenuItem
-            // 
-            this.removeFilesToolStripMenuItem.Name = "removeFilesToolStripMenuItem";
-            this.removeFilesToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.removeFilesToolStripMenuItem.Text = "Remove Files";
-            this.removeFilesToolStripMenuItem.Click += new System.EventHandler(this.RemoveFilesToolStripMenuItem_Click);
-            // 
-            // separatorOfPanelOne
-            // 
-            this.separatorOfPanelOne.BackColor = System.Drawing.Color.Black;
-            this.separatorOfPanelOne.Dock = System.Windows.Forms.DockStyle.Top;
-            this.separatorOfPanelOne.ForeColor = System.Drawing.Color.White;
-            this.separatorOfPanelOne.Location = new System.Drawing.Point(0, 20);
-            this.separatorOfPanelOne.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.separatorOfPanelOne.Name = "separatorOfPanelOne";
-            this.separatorOfPanelOne.Size = new System.Drawing.Size(331, 1);
-            this.separatorOfPanelOne.TabIndex = 2;
-            this.separatorOfPanelOne.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // hiddenFilesLabel
-            // 
-            this.hiddenFilesLabel.BackColor = System.Drawing.Color.White;
-            this.hiddenFilesLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.hiddenFilesLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hiddenFilesLabel.ForeColor = System.Drawing.Color.Black;
-            this.hiddenFilesLabel.Location = new System.Drawing.Point(0, 0);
-            this.hiddenFilesLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.hiddenFilesLabel.Name = "hiddenFilesLabel";
-            this.hiddenFilesLabel.Size = new System.Drawing.Size(331, 20);
-            this.hiddenFilesLabel.TabIndex = 1;
-            this.hiddenFilesLabel.Text = "Hidden Files";
-            this.hiddenFilesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panelRight
-            // 
-            this.panelRight.BackColor = System.Drawing.Color.White;
-            this.panelRight.Controls.Add(this.hiddenFoldersListBox);
-            this.panelRight.Controls.Add(this.separatorOfPanelTwo);
-            this.panelRight.Controls.Add(this.hiddenFoldersLabel);
-            this.panelRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelRight.Location = new System.Drawing.Point(333, 36);
-            this.panelRight.Margin = new System.Windows.Forms.Padding(2);
-            this.panelRight.Name = "panelRight";
-            this.panelRight.Size = new System.Drawing.Size(332, 251);
-            this.panelRight.TabIndex = 29;
-            // 
-            // hiddenFoldersListBox
-            // 
-            this.hiddenFoldersListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.hiddenFoldersListBox.ContextMenuStrip = this.contextMenuStrip2;
-            this.hiddenFoldersListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hiddenFoldersListBox.FormattingEnabled = true;
-            this.hiddenFoldersListBox.Location = new System.Drawing.Point(0, 21);
-            this.hiddenFoldersListBox.Margin = new System.Windows.Forms.Padding(2);
-            this.hiddenFoldersListBox.Name = "hiddenFoldersListBox";
-            this.hiddenFoldersListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.hiddenFoldersListBox.Size = new System.Drawing.Size(332, 230);
-            this.hiddenFoldersListBox.TabIndex = 4;
-            // 
-            // contextMenuStrip2
-            // 
-            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addFoldersToolStripMenuItem,
-            this.removeFoldersToolStripMenuItem});
-            this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(159, 48);
             // 
             // addFoldersToolStripMenuItem
             // 
             this.addFoldersToolStripMenuItem.Name = "addFoldersToolStripMenuItem";
-            this.addFoldersToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.addFoldersToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.addFoldersToolStripMenuItem.Text = "Add Folders";
-            this.addFoldersToolStripMenuItem.Click += new System.EventHandler(this.AddFolderToolStripMenuItem_Click);
+            this.addFoldersToolStripMenuItem.Click += new System.EventHandler(this.AddFoldersToolStripMenuItem_Click);
             // 
-            // removeFoldersToolStripMenuItem
+            // removeToolStripMenuItem
             // 
-            this.removeFoldersToolStripMenuItem.Name = "removeFoldersToolStripMenuItem";
-            this.removeFoldersToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.removeFoldersToolStripMenuItem.Text = "Remove Folders";
-            this.removeFoldersToolStripMenuItem.Click += new System.EventHandler(this.RemoveFolderToolStripMenuItem_Click);
+            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.removeToolStripMenuItem.Text = "Remove";
+            this.removeToolStripMenuItem.Click += new System.EventHandler(this.RemoveToolStripMenuItem_Click);
             // 
-            // separatorOfPanelTwo
+            // aboutToolStripMenuItem
             // 
-            this.separatorOfPanelTwo.BackColor = System.Drawing.Color.Black;
-            this.separatorOfPanelTwo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.separatorOfPanelTwo.ForeColor = System.Drawing.Color.White;
-            this.separatorOfPanelTwo.Location = new System.Drawing.Point(0, 20);
-            this.separatorOfPanelTwo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.separatorOfPanelTwo.Name = "separatorOfPanelTwo";
-            this.separatorOfPanelTwo.Size = new System.Drawing.Size(332, 1);
-            this.separatorOfPanelTwo.TabIndex = 2;
-            this.separatorOfPanelTwo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
             // 
-            // hiddenFoldersLabel
+            // toolStrip1
             // 
-            this.hiddenFoldersLabel.BackColor = System.Drawing.Color.White;
-            this.hiddenFoldersLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.hiddenFoldersLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hiddenFoldersLabel.ForeColor = System.Drawing.Color.Black;
-            this.hiddenFoldersLabel.Location = new System.Drawing.Point(0, 0);
-            this.hiddenFoldersLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.hiddenFoldersLabel.Name = "hiddenFoldersLabel";
-            this.hiddenFoldersLabel.Size = new System.Drawing.Size(332, 20);
-            this.hiddenFoldersLabel.TabIndex = 1;
-            this.hiddenFoldersLabel.Text = "Hidden Folders";
-            this.hiddenFoldersLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolStrip1.BackColor = System.Drawing.Color.White;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.backButton,
+            this.forwardButton,
+            this.addressBar,
+            this.refreshButton});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(684, 25);
+            this.toolStrip1.TabIndex = 1;
+            this.toolStrip1.Text = "toolStrip1";
             // 
-            // panelSeperator
+            // backButton
             // 
-            this.panelSeperator.BackColor = System.Drawing.Color.Black;
-            this.panelSeperator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelSeperator.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelSeperator.Location = new System.Drawing.Point(0, 35);
-            this.panelSeperator.Name = "panelSeperator";
-            this.panelSeperator.Size = new System.Drawing.Size(665, 1);
-            this.panelSeperator.TabIndex = 1;
+            this.backButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.backButton.Enabled = false;
+            this.backButton.Image = global::Files_Hider.Properties.Resources.back_arrow;
+            this.backButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(23, 22);
+            this.backButton.Text = "toolStripButton1";
+            this.backButton.ToolTipText = "Back";
+            this.backButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
-            // panelForTitleBar
+            // forwardButton
             // 
-            this.panelForTitleBar.Controls.Add(this.pictureBox1);
-            this.panelForTitleBar.Controls.Add(this.checkBox1);
-            this.panelForTitleBar.Controls.Add(this.titleBar);
-            this.panelForTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelForTitleBar.Location = new System.Drawing.Point(0, 0);
-            this.panelForTitleBar.Name = "panelForTitleBar";
-            this.panelForTitleBar.Size = new System.Drawing.Size(665, 35);
-            this.panelForTitleBar.TabIndex = 0;
+            this.forwardButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.forwardButton.Enabled = false;
+            this.forwardButton.Image = global::Files_Hider.Properties.Resources.forward_arrow;
+            this.forwardButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.forwardButton.Name = "forwardButton";
+            this.forwardButton.Size = new System.Drawing.Size(23, 22);
+            this.forwardButton.Text = "toolStripButton2";
+            this.forwardButton.ToolTipText = "Forward";
+            this.forwardButton.Click += new System.EventHandler(this.ForwardButton_Click);
             // 
-            // checkBox1
+            // addressBar
             // 
-            this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox1.BackColor = System.Drawing.Color.Black;
-            this.checkBox1.FlatAppearance.BorderSize = 0;
-            this.checkBox1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Black;
-            this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.ForeColor = System.Drawing.Color.White;
-            this.checkBox1.Location = new System.Drawing.Point(630, 5);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(30, 25);
-            this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "X";
-            this.checkBox1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.checkBox1.UseVisualStyleBackColor = false;
-            this.checkBox1.Click += new System.EventHandler(this.ExitButton_Click);
+            this.addressBar.Name = "addressBar";
+            this.addressBar.Size = new System.Drawing.Size(300, 25);
+            this.addressBar.ToolTipText = "AddressBar";
             // 
-            // titleBar
+            // refreshButton
             // 
-            this.titleBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.titleBar.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.titleBar.Location = new System.Drawing.Point(0, 0);
-            this.titleBar.Name = "titleBar";
-            this.titleBar.Size = new System.Drawing.Size(665, 35);
-            this.titleBar.TabIndex = 0;
-            this.titleBar.Text = "Files Hider By Ravikant Asoliya";
-            this.titleBar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.titleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseDown);
+            this.refreshButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.refreshButton.Image = global::Files_Hider.Properties.Resources.refresh_icon;
+            this.refreshButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(23, 22);
+            this.refreshButton.Text = "Refresh";
+            this.refreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
-            // pictureBox1
+            // statusStrip1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(11, -4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(68, 47);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
+            this.statusStrip1.BackColor = System.Drawing.Color.White;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelFullPath});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 289);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(684, 22);
+            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabelFullPath
+            // 
+            this.toolStripStatusLabelFullPath.Name = "toolStripStatusLabelFullPath";
+            this.toolStripStatusLabelFullPath.Size = new System.Drawing.Size(40, 17);
+            this.toolStripStatusLabelFullPath.Text = "Path : ";
+            // 
+            // listView
+            // 
+            this.listView.BackColor = System.Drawing.Color.White;
+            this.listView.ContextMenuStrip = this.contextMenuStrip1;
+            this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView.HideSelection = false;
+            this.listView.LargeImageList = this.imageList1;
+            this.listView.Location = new System.Drawing.Point(0, 49);
+            this.listView.Name = "listView";
+            this.listView.ShowItemToolTips = true;
+            this.listView.Size = new System.Drawing.Size(684, 240);
+            this.listView.TabIndex = 3;
+            this.listView.UseCompatibleStateImageBehavior = false;
+            this.listView.ItemActivate += new System.EventHandler(this.ListView_ItemActivate);
+            this.listView.SelectedIndexChanged += new System.EventHandler(this.ListView_SelectedIndexChanged);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addFilesToolStripMenuItem1,
+            this.addFoldersToolStripMenuItem1,
+            this.removeToolStripMenuItem1,
+            this.refreshToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(138, 92);
+            // 
+            // addFilesToolStripMenuItem1
+            // 
+            this.addFilesToolStripMenuItem1.Name = "addFilesToolStripMenuItem1";
+            this.addFilesToolStripMenuItem1.Size = new System.Drawing.Size(137, 22);
+            this.addFilesToolStripMenuItem1.Text = "Add Files";
+            this.addFilesToolStripMenuItem1.Click += new System.EventHandler(this.AddFilesToolStripMenuItem_Click);
+            // 
+            // addFoldersToolStripMenuItem1
+            // 
+            this.addFoldersToolStripMenuItem1.Name = "addFoldersToolStripMenuItem1";
+            this.addFoldersToolStripMenuItem1.Size = new System.Drawing.Size(137, 22);
+            this.addFoldersToolStripMenuItem1.Text = "Add Folders";
+            this.addFoldersToolStripMenuItem1.Click += new System.EventHandler(this.AddFoldersToolStripMenuItem_Click);
+            // 
+            // removeToolStripMenuItem1
+            // 
+            this.removeToolStripMenuItem1.Name = "removeToolStripMenuItem1";
+            this.removeToolStripMenuItem1.Size = new System.Drawing.Size(137, 22);
+            this.removeToolStripMenuItem1.Text = "Remove";
+            this.removeToolStripMenuItem1.Click += new System.EventHandler(this.RemoveToolStripMenuItem_Click);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.RefreshButton_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "large-file-icon.png");
+            this.imageList1.Images.SetKeyName(1, "large-folder-icon.png");
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(667, 289);
-            this.Controls.Add(this.panelForMainForm);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.ClientSize = new System.Drawing.Size(684, 311);
+            this.Controls.Add(this.listView);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Files Hider";
-            this.panelForMainForm.ResumeLayout(false);
-            this.panelLeft.ResumeLayout(false);
+            this.Text = "FilesHider";
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
-            this.panelRight.ResumeLayout(false);
-            this.contextMenuStrip2.ResumeLayout(false);
-            this.panelForTitleBar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Panel panelForMainForm;
-        private System.Windows.Forms.Panel panelLeft;
-        private System.Windows.Forms.ListBox hiddenFilesListbox;
-        private System.Windows.Forms.Label separatorOfPanelOne;
-        private System.Windows.Forms.Label hiddenFilesLabel;
-        private System.Windows.Forms.Panel panelRight;
-        private System.Windows.Forms.ListBox hiddenFoldersListBox;
-        private System.Windows.Forms.Label separatorOfPanelTwo;
-        private System.Windows.Forms.Label hiddenFoldersLabel;
-        private System.Windows.Forms.Panel panelSeperator;
-        private System.Windows.Forms.Panel panelForTitleBar;
-        private System.Windows.Forms.Label titleBar;
-        private System.Windows.Forms.Panel panelForMiddleSeperator;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addFilesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem removeFilesToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private System.Windows.Forms.ToolStripMenuItem addFoldersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem removeFoldersToolStripMenuItem;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelFullPath;
+        private System.Windows.Forms.ListView listView;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem addFilesToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem addFoldersToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripButton backButton;
+        private System.Windows.Forms.ToolStripButton forwardButton;
+        private System.Windows.Forms.ToolStripComboBox addressBar;
+        private System.Windows.Forms.ToolStripButton refreshButton;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
     }
 }
-

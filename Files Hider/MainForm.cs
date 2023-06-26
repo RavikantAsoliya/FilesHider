@@ -1,194 +1,394 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Diagnostics;
-using Microsoft.WindowsAPICodePack;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Windows.Threading;
 
 namespace Files_Hider
 {
-    
     public partial class MainForm : Form
     {
-        private static readonly string path = $@"C:\Users\{Environment.UserName}\Files Hider";
+        private readonly string JsonFilePath = $"{Path.GetPathRoot(Environment.GetFolderPath(Environment.SpecialFolder.Windows))}Users\\{Environment.UserName}\\data.json";
+        private List<Dictionary<string, string>> jsonData;
+        private readonly Stack<string> backStack = new Stack<string>();
+        private readonly Stack<string> forwardStack = new Stack<string>();
+        private string currentDirectory = "home";
         public MainForm()
         {
             InitializeComponent();
-            CatchData();
-        }
-        
-        private void CatchData()
-        {
-            if (Directory.Exists(path))
-            {
-                foreach (var line in File.ReadLines($"{path}\\hiddenFiles.dat"))
-                {
-                    hiddenFilesListbox.Items.Add(line);
-                }
-                foreach (var line in File.ReadLines($"{path}\\hiddenFolders.dat"))
-                {
-                    hiddenFoldersListBox.Items.Add(line);
-                }
-            }
-            else
-            {
-                Directory.CreateDirectory(path);
-                File.Create($"{path}\\hiddenFiles.dat");
-                File.Create($"{path}\\hiddenFolders.dat");
-                SubProcess.Call("attrib", $"+s +h \"{path}\"");
-            }
+            LoadData();
+                
         }
 
-
-        #region Add and Remove Files
-
-        private void AddFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LoadData()
         {
-            Thread thread = new Thread(() =>
-            {
-                OpenFileDialog openFileDialog = new OpenFileDialog
-                {
-                    Multiselect = true,
-                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                    Filter = "All Files|*.*",
+            listView.Items.Clear();
+            addressBar.Text = "Home";
+            toolStripStatusLabelFullPath.Text = "";
 
-                };
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+            try
+            {
+                if (File.Exists(JsonFilePath))
                 {
-                    foreach (var file in openFileDialog.FileNames)
+                    string jsonContent = File.ReadAllText(JsonFilePath);
+                    jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(jsonContent);
+
+                    foreach (Dictionary<string, string> path in jsonData)
                     {
-                        Task.Factory.StartNew(() =>
+                        if (Directory.Exists(path["FullPath"]))
                         {
-                            SubProcess.Call("attrib", $"+s +h \"{file}\"");
-                            hiddenFilesListbox.Invoke((MethodInvoker)(() => hiddenFilesListbox.Items.Add(file)));
-                        });
-                    }
-                    using (StreamWriter streamWriter = File.AppendText($"{path}\\hiddenFiles.dat"))
-                    {
-                        foreach (var line in openFileDialog.FileNames)
+                            ListViewItem item = listView.Items.Add(new DirectoryInfo(path["FullPath"]).Name);
+                            item.SubItems.Add(path["Type"]);
+                            item.SubItems.Add("");
+                            item.ImageIndex = 1;
+                            item.Tag = path["FullPath"];
+                            item.ToolTipText = $"Size : N/A\n" +
+                                                $"Status : Hidden";
+                        }
+                        else if (File.Exists(path["FullPath"]))
                         {
-                            streamWriter.WriteLine(line);
+                            ListViewItem item = listView.Items.Add(new FileInfo(path["FullPath"]).Name);
+                            item.SubItems.Add(path["Type"]);
+                            item.SubItems.Add(new FileInfo(path["FullPath"]).Length.ToString());
+                            item.ImageIndex = 0;
+                            item.Tag = path["FullPath"];
+
+                            item.ToolTipText = $"Size : {new FileInfo(path["FullPath"]).Length}\n" +
+                                                $"Status : Hidden";
                         }
                     }
                 }
-            });
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
+                else
+                {
+                    jsonData = new List<Dictionary<string, string>>();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while loading data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void RemoveFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveData()
         {
-            Task.Factory.StartNew(() =>
+            try
             {
-                List<string> files = new List<string>();
-
-                hiddenFilesListbox.Invoke((MethodInvoker)(() =>
-                {
-                    foreach (int index in hiddenFilesListbox.SelectedIndices)
-                    {
-                        string file = hiddenFilesListbox.Items[index].ToString();
-                        files.Add(file);
-                    }
-                }));
-
-                foreach (string file in files)
-                {
-                    SubProcess.Call("attrib", $"-s -h \"{file}\"");
-                    hiddenFilesListbox.Invoke((MethodInvoker)(() => hiddenFilesListbox.Items.Remove(file)));
-                }
-
-                using (StreamWriter streamWriter = File.CreateText($"{path}\\hiddenFiles.dat"))
-                {
-                    for (int i = 0; i <= hiddenFilesListbox.Items.Count - 1; i++)
-                        streamWriter.WriteLine(hiddenFilesListbox.Items[i].ToString());
-                }
-            });
+                string jsonContent = JsonConvert.SerializeObject(jsonData, Formatting.Indented);
+                File.WriteAllText(JsonFilePath, jsonContent);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while saving data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        #endregion
-
-
-        #region Add and Remove Folders
-
-        private void AddFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RemoveSelectedItems()
         {
-            CommonOpenFileDialog commonOpenFileDialog = new CommonOpenFileDialog
+            try
             {
-                IsFolderPicker = true,
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                Multiselect = true
+                foreach (ListViewItem selectedItem in listView.SelectedItems)
+                {
+                    string itemPath = selectedItem.Tag.ToString();
+
+                    // Remove system and hidden attributes
+                    FileAttributes currentAttributes = File.GetAttributes(itemPath);
+                    FileAttributes newAttributes = currentAttributes & ~(FileAttributes.System | FileAttributes.Hidden);
+                    File.SetAttributes(itemPath, newAttributes);
+
+                    selectedItem.Remove();
+
+                    RemoveItemFromJsonData(itemPath);
+                }
+
+                SaveData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while removing items: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AddFilesOrFolders(bool onlyFolder)
+        {
+            CommonOpenFileDialog openFileDialog = new CommonOpenFileDialog
+            {
+                Multiselect = true,
+                IsFolderPicker = onlyFolder
             };
-            if (commonOpenFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
+
+            if (openFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                foreach (var folder in commonOpenFileDialog.FileNames)
+                try
                 {
-                    SubProcess.Call("attrib", $"+s +h \"{folder}\"");
-                    hiddenFoldersListBox.Items.Add(folder);
-                }
-                using (StreamWriter streamWriter = File.AppendText($"{path}\\hiddenFolders.dat"))
-                {
-                    foreach (var line in commonOpenFileDialog.FileNames)
+                    foreach (string filePath in openFileDialog.FileNames)
                     {
-                        streamWriter.WriteLine(line);
+                        SetSystemAndHiddenAttributes(filePath);
+
+                        FileSystemInfo fileInfo = onlyFolder ? (FileSystemInfo)new DirectoryInfo(filePath) : new FileInfo(filePath);
+
+                        ListViewItem item = new ListViewItem(fileInfo.Name);
+                        item.SubItems.Add(onlyFolder ? "Folder" : "File");
+                        item.SubItems.Add(onlyFolder ? "" : ((FileInfo)fileInfo).Length.ToString());
+                        item.SubItems.Add("Hidden");
+                        item.ImageIndex = onlyFolder ? 1 : 0;
+                        item.Tag = fileInfo.FullName;
+                        listView.Items.Add(item);
+
+                        AddItemToJsonData(fileInfo.FullName, onlyFolder ? "Folder" : "File");
+                    }
+
+                    SaveData();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred while adding files or folders: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void SetSystemAndHiddenAttributes(string filePath)
+        {
+            try
+            {
+                FileAttributes attributes = File.GetAttributes(filePath);
+                attributes |= FileAttributes.System | FileAttributes.Hidden;
+                File.SetAttributes(filePath, attributes);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while setting system and hidden attributes: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AddItemToJsonData(string fullPath, string type)
+        {
+            try
+            {
+                Dictionary<string, string> newItem = new Dictionary<string, string>
+                {
+                    { "FullPath", fullPath },
+                    { "Type", type }
+                };
+
+                jsonData.Add(newItem);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while adding an item to JSON data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void RemoveItemFromJsonData(string fullPath)
+        {
+            try
+            {
+                jsonData.RemoveAll(item => item["FullPath"] == fullPath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while removing an item from JSON data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (backStack.Count > 0)
+                {
+                    forwardStack.Push(currentDirectory);
+                    addressBar.Text = currentDirectory = backStack.Pop();
+                    if (currentDirectory == "home")
+                        LoadData();
+                    else
+                        PopulateListView(currentDirectory);
+                    forwardButton.Enabled = true;
+                }
+
+                backButton.Enabled = backStack.Count > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while navigating back: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ForwardButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (forwardStack.Count > 0)
+                {
+                    backStack.Push(currentDirectory);
+                    addressBar.Text = currentDirectory = forwardStack.Pop();
+                    PopulateListView(currentDirectory);
+                    backButton.Enabled = true;
+                }
+
+                forwardButton.Enabled = forwardStack.Count > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while navigating forward: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void NavigateToDirectory(string path)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(currentDirectory))
+                {
+                    backStack.Push(currentDirectory);
+                    backButton.Enabled = true;
+                }
+
+                addressBar.Text = currentDirectory = path;
+                forwardStack.Clear();
+                forwardButton.Enabled = false;
+                PopulateListView(currentDirectory);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while navigating to the directory: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        
+        public void PopulateListView(string path)
+        {
+            listView.BeginUpdate();
+            listView.Items.Clear();
+            toolStripStatusLabelFullPath.Text = "";
+
+            try
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo(path);
+                DirectoryInfo[] directories = directoryInfo.GetDirectories();
+                FileInfo[] files = directoryInfo.GetFiles();
+
+                foreach (DirectoryInfo directory in directories)
+                {
+                    ListViewItem item = listView.Items.Add(directory.Name);
+
+                    item.Tag = directory.FullName;
+                    item.ImageIndex = 1;
+                    item.SubItems.AddRange(new[]
+                    {
+                        "Folder",
+                        string.Empty,
+                        directory.LastWriteTime.ToString()
+                    });
+
+                    FileAttributes attributes = File.GetAttributes(directory.FullName);
+                    bool hasHiddenAndSystemAttributes = (attributes & (FileAttributes.Hidden | FileAttributes.System)) ==
+                                                        (FileAttributes.Hidden | FileAttributes.System);
+
+                    item.ToolTipText = $"Size: N/A\nStatus: {(hasHiddenAndSystemAttributes ? "Hidden" : "Visible")}";
+                }
+
+                foreach (FileInfo file in files)
+                {
+                    ListViewItem item = listView.Items.Add(file.Name);
+
+                    item.Tag = file.FullName;
+                    item.ImageIndex = 0;
+                    item.SubItems.AddRange(new[]
+                    {
+                        file.Extension,
+                        file.Length.ToString(),
+                        file.LastWriteTime.ToString()
+                    });
+
+                    FileAttributes attributes = File.GetAttributes(file.FullName);
+                    bool hasHiddenAndSystemAttributes = (attributes & (FileAttributes.Hidden | FileAttributes.System)) ==
+                                                        (FileAttributes.Hidden | FileAttributes.System);
+
+                    item.ToolTipText = $"Size: {file.Length}\nStatus: {(hasHiddenAndSystemAttributes ? "Hidden" : "Visible")}";
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            listView.EndUpdate();
+        }
+
+        private void AddFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddFilesOrFolders(false);
+        }
+
+        private void AddFoldersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddFilesOrFolders(true);
+        }
+
+        private void RemoveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RemoveSelectedItems();
+        }
+
+        private void RefreshButton_Click(object sender, EventArgs e)
+        {
+            if (currentDirectory == "home")
+                LoadData();
+            else
+                PopulateListView(currentDirectory);
+        }
+
+        private void ListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ListView listView = sender as ListView;
+                if (listView.SelectedItems.Count == 1)
+                {
+                    ListViewItem selectedItem = listView.SelectedItems[0];
+                    toolStripStatusLabelFullPath.Text = $"Path: {selectedItem.Tag}";
+                }
+                else
+                {
+                    toolStripStatusLabelFullPath.Text = "";
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Error in Select Index Changed + {ex.Message}", "Error");
+            }
+        }
+
+        private void ListView_ItemActivate(object sender, EventArgs e)
+        {
+            try
+            {
+                if (listView.SelectedItems[0].Tag is string path)
+                {
+
+                    if (File.Exists(path))
+                    {
+                        Process.Start(path);
+                    }
+                    else
+                    {
+                        NavigateToDirectory(path);
+                        addressBar.Text = path;
+
                     }
                 }
             }
-        }
-        private void RemoveFolderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            List<string> folders = new List<string>();
-            foreach (int index in hiddenFoldersListBox.SelectedIndices)
+            catch (Exception ex)
             {
-                string folder = hiddenFoldersListBox.Items[index].ToString();
-                folders.Add(folder);
-            }
-            foreach (string folder in folders)
-            {
-                hiddenFoldersListBox.Items.Remove(folder);
-                SubProcess.Call("attrib", $"-s -h \"{folder}\"");
-            }
-
-            using (StreamWriter streamWriter = File.CreateText($"{path}\\hiddenFolders.dat"))
-            {
-                for (int i = 0; i <= hiddenFoldersListBox.Items.Count - 1; i++)
-                    streamWriter.WriteLine(hiddenFoldersListBox.Items[i].ToString());
+                MessageBox.Show($"An error occurred while opening the file or directory: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        #endregion
-
-
-        #region Drag App
-
-        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
-        private extern static void ReleaseCapture();
-        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
-        private extern static void SendMessage(IntPtr one, int two, int three, int four);
-
-        private void TitleBar_MouseDown(object sender, MouseEventArgs e)
-        {
-            ReleaseCapture();
-            SendMessage(Handle, 0x112, 0xf012, 0);
-        }
-
-        #endregion
-
-
-        private void ExitButton_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(0);
-        }
-
-        
     }
 }
