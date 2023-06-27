@@ -1,6 +1,6 @@
 ﻿namespace Practice
 {
-    partial class MainForm
+    partial class FilesHider
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FilesHider));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -123,7 +123,7 @@
             // 
             this.backButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.backButton.Enabled = false;
-            this.backButton.Image = global::Files_Hider.Properties.Resources.back_arrow;
+            this.backButton.Image = global::Practice.Properties.Resources.back_arrow;
             this.backButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(23, 22);
@@ -135,7 +135,7 @@
             // 
             this.forwardButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.forwardButton.Enabled = false;
-            this.forwardButton.Image = global::Files_Hider.Properties.Resources.forward_arrow;
+            this.forwardButton.Image = global::Practice.Properties.Resources.forward_arrow;
             this.forwardButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.forwardButton.Name = "forwardButton";
             this.forwardButton.Size = new System.Drawing.Size(23, 22);
@@ -152,7 +152,7 @@
             // refreshButton
             // 
             this.refreshButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.refreshButton.Image = global::Files_Hider.Properties.Resources.refresh_icon;
+            this.refreshButton.Image = global::Practice.Properties.Resources.refresh_icon;
             this.refreshButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(23, 22);
@@ -178,6 +178,7 @@
             // 
             // listView
             // 
+            this.listView.AllowDrop = true;
             this.listView.BackColor = System.Drawing.Color.White;
             this.listView.ContextMenuStrip = this.contextMenuStrip1;
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -191,6 +192,8 @@
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.ItemActivate += new System.EventHandler(this.ListView_ItemActivate);
             this.listView.SelectedIndexChanged += new System.EventHandler(this.ListView_SelectedIndexChanged);
+            this.listView.DragDrop += new System.Windows.Forms.DragEventHandler(this.listView_DragDrop);
+            this.listView.DragEnter += new System.Windows.Forms.DragEventHandler(this.listView_DragEnter);
             // 
             // contextMenuStrip1
             // 
@@ -237,7 +240,7 @@
             this.imageList1.Images.SetKeyName(0, "large-file-icon.png");
             this.imageList1.Images.SetKeyName(1, "large-folder-icon.png");
             // 
-            // MainForm
+            // FilesHider
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -248,7 +251,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "MainForm";
+            this.Name = "FilesHider";
             this.Text = "FilesHider";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

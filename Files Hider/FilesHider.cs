@@ -390,5 +390,31 @@ namespace Files_Hider
                 MessageBox.Show($"An error occurred while opening the file or directory: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void ListView_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy;
+        }
+
+        private void ListView_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] filesAndFolders = (string[])e.Data.GetData(DataFormats.FileDrop);
+            foreach (string file in filesAndFolders)
+            {
+                if (File.Exists(file))
+                {
+                    SetSystemAndHiddenAttributes(file);
+                    AddItemToJsonData(file, "File");
+                }
+                else if (Directory.Exists(file))
+                {
+                    SetSystemAndHiddenAttributes(file);
+                    AddItemToJsonData(file, "Folder");
+                }
+                SaveData();
+            }
+            LoadData();
+        }
     }
 }
