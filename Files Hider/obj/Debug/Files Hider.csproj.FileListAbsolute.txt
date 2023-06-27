@@ -20,4 +20,4 @@ D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debu
 D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files Hider.pdb
 D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\bin\Debug\Newtonsoft.Json.dll
 D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\bin\Debug\Newtonsoft.Json.xml
-D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files_Hider.MainForm.resources
+D:\Programming Resources\C Sharp\GitHub Projects\FilesHider\Files Hider\obj\Debug\Files_Hider.FilesHider.resources
