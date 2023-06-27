@@ -108,6 +108,7 @@
             // toolStrip1
             // 
             this.toolStrip1.BackColor = System.Drawing.Color.White;
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.backButton,
             this.forwardButton,
@@ -179,6 +180,7 @@
             // listView
             // 
             this.listView.BackColor = System.Drawing.Color.White;
+            this.listView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listView.ContextMenuStrip = this.contextMenuStrip1;
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView.HideSelection = false;
@@ -249,9 +251,10 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FilesHider";
-            this.Text = "FilesHider";
+            this.Text = "Files Hider";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
