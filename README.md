@@ -33,6 +33,7 @@ Include some screenshots or GIFs showcasing the application's interface and func
 
 Here are some features and topics that we plan to implement in future versions of Files Hider:
 
+- Drag & Drop files and folders to hide and unhide.
 - Password protection for hidden files and folders.
 - Customizable file-hiding algorithms for enhanced security.
 - Support for hiding files and folders on external drives.
