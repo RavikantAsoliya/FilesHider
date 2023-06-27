@@ -191,6 +191,8 @@
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.ItemActivate += new System.EventHandler(this.ListView_ItemActivate);
             this.listView.SelectedIndexChanged += new System.EventHandler(this.ListView_SelectedIndexChanged);
+            this.listView.DragDrop += new System.Windows.Forms.DragEventHandler(this.ListView_DragDrop);
+            this.listView.DragEnter += new System.Windows.Forms.DragEventHandler(this.ListView_DragEnter);
             // 
             // contextMenuStrip1
             // 
@@ -237,7 +239,7 @@
             this.imageList1.Images.SetKeyName(0, "large-file-icon.png");
             this.imageList1.Images.SetKeyName(1, "large-folder-icon.png");
             // 
-            // MainForm
+            // FilesHider
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -248,7 +250,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "MainForm";
+            this.Name = "FilesHider";
             this.Text = "FilesHider";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

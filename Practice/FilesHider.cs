@@ -8,24 +8,20 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Practice
 {
-    public partial class MainForm : Form
+    public partial class FilesHider : Form
     {
         private readonly string JsonFilePath = $"{Path.GetPathRoot(Environment.GetFolderPath(Environment.SpecialFolder.Windows))}Users\\{Environment.UserName}\\data.json";
         private List<Dictionary<string, string>> jsonData;
         private readonly Stack<string> backStack = new Stack<string>();
         private readonly Stack<string> forwardStack = new Stack<string>();
         private string currentDirectory = "home";
-
-        private readonly string encryptionKey = "YourEncryptionKey"; // Replace with your own encryption key
-
-        public MainForm()
+        public FilesHider()
         {
             InitializeComponent();
             LoadData();
@@ -42,10 +38,8 @@ namespace Practice
             {
                 if (File.Exists(JsonFilePath))
                 {
-                    string encryptedContent = File.ReadAllText(JsonFilePath);
-                    string decryptedContent = DecryptData(encryptedContent, encryptionKey);
-
-                    jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(decryptedContent);
+                    string jsonContent = File.ReadAllText(JsonFilePath);
+                    jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(jsonContent);
 
                     foreach (Dictionary<string, string> path in jsonData)
                     {
@@ -88,8 +82,7 @@ namespace Practice
             try
             {
                 string jsonContent = JsonConvert.SerializeObject(jsonData, Formatting.Indented);
-                string encryptedContent = EncryptData(jsonContent, encryptionKey);
-                File.WriteAllText(JsonFilePath, encryptedContent);
+                File.WriteAllText(JsonFilePath, jsonContent);
             }
             catch (Exception ex)
             {
@@ -97,86 +90,6 @@ namespace Practice
             }
         }
 
-        private void AddItemToJsonData(string fullPath, string type)
-        {
-            try
-            {
-                Dictionary<string, string> newItem = new Dictionary<string, string>
-                {
-                    { "FullPath", fullPath },
-                    { "Type", type }
-                };
-
-                jsonData.Add(newItem);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred while adding an item to JSON data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void RemoveItemFromJsonData(string fullPath)
-        {
-            try
-            {
-                jsonData.RemoveAll(item => item["FullPath"] == fullPath);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred while removing an item from JSON data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        // Encrypt data using AES algorithm
-        private static string EncryptData(string data, string key)
-        {
-            byte[] encryptedBytes;
-            using (Aes aesAlg = Aes.Create())
-            {
-                aesAlg.Key = Encoding.UTF8.GetBytes(key);
-                aesAlg.GenerateIV();
-
-                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
-
-                using (MemoryStream msEncrypt = new MemoryStream())
-                {
-                    msEncrypt.Write(aesAlg.IV, 0, aesAlg.IV.Length);
-                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-                    {
-                        byte[] dataBytes = Encoding.UTF8.GetBytes(data);
-                        csEncrypt.Write(dataBytes, 0, dataBytes.Length);
-                    }
-                    encryptedBytes = msEncrypt.ToArray();
-                }
-            }
-            return Convert.ToBase64String(encryptedBytes);
-        }
-
-        // Decrypt data using AES algorithm
-        private static string DecryptData(string encryptedData, string key)
-        {
-            byte[] encryptedBytes = Convert.FromBase64String(encryptedData);
-            byte[] iv = new byte[16];
-            Array.Copy(encryptedBytes, iv, iv.Length);
-
-            using (Aes aesAlg = Aes.Create())
-            {
-                aesAlg.Key = Encoding.UTF8.GetBytes(key);
-                aesAlg.IV = iv;
-
-                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-
-                using (MemoryStream msDecrypt = new MemoryStream(encryptedBytes, iv.Length, encryptedBytes.Length - iv.Length))
-                {
-                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                    {
-                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
-                        {
-                            return srDecrypt.ReadToEnd();
-                        }
-                    }
-                }
-            }
-        }
         private void RemoveSelectedItems()
         {
             try
@@ -252,6 +165,36 @@ namespace Practice
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred while setting system and hidden attributes: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AddItemToJsonData(string fullPath, string type)
+        {
+            try
+            {
+                Dictionary<string, string> newItem = new Dictionary<string, string>
+                {
+                    { "FullPath", fullPath },
+                    { "Type", type }
+                };
+
+                jsonData.Add(newItem);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while adding an item to JSON data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void RemoveItemFromJsonData(string fullPath)
+        {
+            try
+            {
+                jsonData.RemoveAll(item => item["FullPath"] == fullPath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while removing an item from JSON data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -446,6 +389,32 @@ namespace Practice
             {
                 MessageBox.Show($"An error occurred while opening the file or directory: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void listView_DragEnter(object sender, DragEventArgs e)
+        {
+            if(e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy;
+        }
+
+        private void listView_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] filesAndFolders = (string[])e.Data.GetData(DataFormats.FileDrop);
+            foreach(string file in  filesAndFolders)
+            {
+                if (File.Exists(file))
+                {
+                    SetSystemAndHiddenAttributes(file);
+                    AddItemToJsonData(file, "File");
+                }
+                else if(Directory.Exists(file))
+                {
+                    SetSystemAndHiddenAttributes(file);
+                    AddItemToJsonData(file, "Folder");
+                }
+                SaveData();
+            }
+            LoadData();
         }
     }
 }
