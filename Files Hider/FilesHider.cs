@@ -14,14 +14,14 @@ using System.Windows.Forms;
 
 namespace Files_Hider
 {
-    public partial class MainForm : Form
+    public partial class FilesHider : Form
     {
         private readonly string JsonFilePath = $"{Path.GetPathRoot(Environment.GetFolderPath(Environment.SpecialFolder.Windows))}Users\\{Environment.UserName}\\data.json";
         private List<Dictionary<string, string>> jsonData;
         private readonly Stack<string> backStack = new Stack<string>();
         private readonly Stack<string> forwardStack = new Stack<string>();
         private string currentDirectory = "home";
-        public MainForm()
+        public FilesHider()
         {
             InitializeComponent();
             LoadData();

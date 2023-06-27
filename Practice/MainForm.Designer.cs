@@ -1,4 +1,4 @@
-﻿namespace Files_Hider
+﻿namespace Practice
 {
     partial class MainForm
     {
