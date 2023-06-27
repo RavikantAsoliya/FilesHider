@@ -29,6 +29,8 @@ To use Files Hider, follow these steps:
 
 Include some screenshots or GIFs showcasing the application's interface and functionality.
 
+![2](https://github.com/RavikantAsoliya/FilesHider/blob/main/Screenshots/Files-Hider.png)
+
 ## Future Enhancements
 
 Here are some features and topics that we plan to implement in future versions of Files Hider:
