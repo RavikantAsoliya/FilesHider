@@ -66,6 +66,8 @@
     <Compile Include="FilesHider.Designer.cs">
       <DependentUpon>FilesHider.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\FileTypeChecker.cs" />
+    <Compile Include="Helper\SizeManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FilesHider.resx">
