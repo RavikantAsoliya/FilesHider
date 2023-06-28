@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
+﻿using Files_Hider.Helper;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -82,32 +84,17 @@ namespace Files_Hider
                             // Create a ListViewItem for a directory.
                             ListViewItem item = listView.Items.Add(new DirectoryInfo(path["FullPath"]).Name);
 
-                            // Add the "Type" value as a sub-item.
-                            item.SubItems.Add(path["Type"]);
-
-                            // Add an empty string as a sub-item for size.
-                            item.SubItems.Add("");
-
                             // Set the image index to indicate a directory.
                             item.ImageIndex = 1;
 
                             // Store the full path as the tag for the ListViewItem.
                             item.Tag = path["FullPath"];
-
-                            // Set the tooltip text to indicate that size is not applicable and the status is hidden.
-                            item.ToolTipText = $"Size: N/A\nStatus: Hidden";
                         }
                         // Check if the path corresponds to a file.
                         else if (File.Exists(path["FullPath"]))
                         {
                             // Create a ListViewItem for a file.
                             ListViewItem item = listView.Items.Add(new FileInfo(path["FullPath"]).Name);
-
-                            // Add the "Type" value as a sub-item.
-                            item.SubItems.Add(path["Type"]);
-
-                            // Get the file size as a string and add it as a sub-item.
-                            item.SubItems.Add(new FileInfo(path["FullPath"]).Length.ToString());
 
                             // Set the image index to indicate a file.
                             item.ImageIndex = 0;
@@ -116,7 +103,9 @@ namespace Files_Hider
                             item.Tag = path["FullPath"];
 
                             // Set the tooltip text to include the file size and indicate the status is hidden.
-                            item.ToolTipText = $"Size: {FormatSize(new FileInfo(path["FullPath"]).Length)}\nStatus: Hidden";
+                            item.ToolTipText = $"Type: {FileTypeChecker.GetFileTypeByExtension(Path.GetExtension(path["FullPath"]))}\n" +
+                            $"Size: {SizeManager.FormatSize(new FileInfo(path["FullPath"]).Length)}\n" +
+                            $"Date Modified: {new FileInfo(path["FullPath"]).LastWriteTime}";
                         }
 
                     }
@@ -480,14 +469,6 @@ namespace Files_Hider
                     // Set the image index for displaying the folder icon.
                     item.ImageIndex = 1;
 
-                    // Add sub-items for the type, size (empty for folders), and last write time.
-                    item.SubItems.AddRange(new[]
-                    {
-                "Folder",
-                string.Empty,
-                directory.LastWriteTime.ToString()
-            });
-
                     // Check if the directory has hidden and system attributes.
                     FileAttributes attributes = File.GetAttributes(directory.FullName);
                     bool hasHiddenAndSystemAttributes = (attributes & (FileAttributes.Hidden | FileAttributes.System)) ==
@@ -509,21 +490,13 @@ namespace Files_Hider
                     // Set the image index based on the file extension.
                     item.ImageIndex = 0;
 
-                    // Add sub-items for the extension, size, and last write time.
-                    item.SubItems.AddRange(new[]
-                    {
-                file.Extension,
-                file.Length.ToString(),
-                file.LastWriteTime.ToString()
-            });
-
                     // Check if the file has hidden and system attributes.
                     FileAttributes attributes = File.GetAttributes(file.FullName);
                     bool hasHiddenAndSystemAttributes = (attributes & (FileAttributes.Hidden | FileAttributes.System)) ==
                                                         (FileAttributes.Hidden | FileAttributes.System);
 
                     // Set the tooltip text with size and status information.
-                    item.ToolTipText = $"Size: {FormatSize(file.Length)}\nStatus: {(hasHiddenAndSystemAttributes ? "Hidden" : "Visible")}";
+                    item.ToolTipText = $"Size: {SizeManager.FormatSize(file.Length)}\nStatus: {(hasHiddenAndSystemAttributes ? "Hidden" : "Visible")}";
                 }
             }
             catch (Exception e)
@@ -717,31 +690,25 @@ namespace Files_Hider
             LoadData();
         }
 
-        /// <summary>
-        /// Formats the given size into a human-readable format.
-        /// </summary>
-        /// <param name="size">The size to be formatted.</param>
-        /// <param name="withBytes">Optional. Determines whether to include the size in bytes.</param>
-        /// <returns>The formatted size string.</returns>
-        public static string FormatSize(long size, bool withBytes = false)
+        private async void listView_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
         {
-            string[] suffixes = { "Bytes", "KB", "MB", "GB", "TB" };
-            int suffixIndex = 0;
-            double formattedSize = size;
-
-            // Convert the size into a human-readable format
-            while (formattedSize >= 1024 && suffixIndex < suffixes.Length - 1)
+            if (e.Item != null)
             {
-                formattedSize /= 1024;
-                suffixIndex++;
+                // Get the full path of the item
+                string path = e.Item.Tag.ToString();
+
+                // Check if the path represents a directory
+                if (Directory.Exists(path))
+                {
+                    // Calculate the size of the folder asynchronously
+                    string folderSize = await SizeManager.GetSize(path);
+
+                    // Update the tooltip of the item with folder information
+                    e.Item.ToolTipText = $"Type: Folder\n" +
+                        $"Size: {folderSize}\n" +
+                        $"Date Modified: {new DirectoryInfo(path).LastWriteTime}";
+                }
             }
-
-            // Construct the formatted size string with the appropriate unit
-            string formattedSizeWithUnit = $"{formattedSize:0.##} {suffixes[suffixIndex]}";
-            string sizeInBytes = $"{size} bytes";
-
-            // Optionally include the size in bytes
-            return withBytes ? $"{formattedSizeWithUnit} ({sizeInBytes})" : formattedSizeWithUnit;
         }
     }
 }
