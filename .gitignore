@@ -1,5 +1,4 @@
-<<<<<<< HEAD
 .vs/
-=======
-.vs/
->>>>>>> 7711cf9d175ce739f7bbe025f3fed9adf71c22ba
+.Files Hider/obj
+.Files Hider/bin/Debug/Files Hider.exe.config
+.Files Hider/bin/Debug/Files Hider.pdb
