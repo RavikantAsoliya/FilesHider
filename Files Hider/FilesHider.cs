@@ -116,7 +116,7 @@ namespace Files_Hider
                             item.Tag = path["FullPath"];
 
                             // Set the tooltip text to include the file size and indicate the status is hidden.
-                            item.ToolTipText = $"Size: {new FileInfo(path["FullPath"]).Length}\nStatus: Hidden";
+                            item.ToolTipText = $"Size: {FormatSize(new FileInfo(path["FullPath"]).Length)}\nStatus: Hidden";
                         }
 
                     }
@@ -523,7 +523,7 @@ namespace Files_Hider
                                                         (FileAttributes.Hidden | FileAttributes.System);
 
                     // Set the tooltip text with size and status information.
-                    item.ToolTipText = $"Size: {file.Length}\nStatus: {(hasHiddenAndSystemAttributes ? "Hidden" : "Visible")}";
+                    item.ToolTipText = $"Size: {FormatSize(file.Length)}\nStatus: {(hasHiddenAndSystemAttributes ? "Hidden" : "Visible")}";
                 }
             }
             catch (Exception e)
@@ -717,5 +717,31 @@ namespace Files_Hider
             LoadData();
         }
 
+        /// <summary>
+        /// Formats the given size into a human-readable format.
+        /// </summary>
+        /// <param name="size">The size to be formatted.</param>
+        /// <param name="withBytes">Optional. Determines whether to include the size in bytes.</param>
+        /// <returns>The formatted size string.</returns>
+        public static string FormatSize(long size, bool withBytes = false)
+        {
+            string[] suffixes = { "Bytes", "KB", "MB", "GB", "TB" };
+            int suffixIndex = 0;
+            double formattedSize = size;
+
+            // Convert the size into a human-readable format
+            while (formattedSize >= 1024 && suffixIndex < suffixes.Length - 1)
+            {
+                formattedSize /= 1024;
+                suffixIndex++;
+            }
+
+            // Construct the formatted size string with the appropriate unit
+            string formattedSizeWithUnit = $"{formattedSize:0.##} {suffixes[suffixIndex]}";
+            string sizeInBytes = $"{size} bytes";
+
+            // Optionally include the size in bytes
+            return withBytes ? $"{formattedSizeWithUnit} ({sizeInBytes})" : formattedSizeWithUnit;
+        }
     }
 }

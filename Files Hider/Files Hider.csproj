@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>file-manager-codehacks.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\file-manager-codehacks.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
@@ -105,7 +105,7 @@
     <None Include="Resources\back-arrow.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="file-manager-codehacks.ico" />
+    <Content Include="Resources\file-manager-codehacks.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
