@@ -1,5 +1,8 @@
 # Files Hider
 
+
+<img src="https://img.shields.io/github/issues-pr-closed/RavikantAsoliya/FilesHider?style=flat-square&logo=github&color=dark" alt="Closed PRs"><img src="https://img.shields.io/github/issues-pr/RavikantAsoliya/FilesHider?style=flat-square&logo=github&color=dark" alt="Opened PRs"><img src="https://img.shields.io/github/issues/RavikantAsoliya/FilesHider?color=red&label=Open%20Issues&style=flat-square" alt="Open Issues"><img src="https://img.shields.io/github/watchers/RavikantAsoliya/FilesHider?label=Watchers&style=flat-square" alt="Watchers"><img src="https://img.shields.io/github/last-commit/RavikantAsoliya/FilesHider?style=flat-square&logo=github&color=dark" alt="Last Commit"><img src="https://img.shields.io/github/contributors/RavikantAsoliya/FilesHider?style=flat-square&logo=github&color=dark" alt="Contributors"><img src="https://img.shields.io/github/forks/RavikantAsoliya/FilesHider?style=flat-square&logo=github&color=dark" alt="Forks">
+
 Files Hider is a Windows Forms application designed to provide a convenient way to hide files and folders. With Files Hider, you can easily select and hide specific files or entire folders within a user-friendly interface. Once hidden, these files and folders will no longer be visible in regular file explorers or directory listings.
 
 This application offers a simple and intuitive interface, making it easy for users to choose the files or folders they want to hide. Whether you want to keep certain files private or organize your content in a discreet manner, Files Hider provides a seamless solution. By hiding files and folders, you can maintain a higher level of privacy and security for your sensitive data. These hidden files remain accessible within the application itself, ensuring that only authorized users can access them.
@@ -29,11 +32,12 @@ To use Files Hider, follow these steps:
 
 Include some screenshots or GIFs showcasing the application's interface and functionality.
 
+![2](https://github.com/RavikantAsoliya/FilesHider/blob/main/Screenshots/Files-Hider.png)
+
 ## Future Enhancements
 
 Here are some features and topics that we plan to implement in future versions of Files Hider:
 
-- Drag & Drop files and folders to hide and unhide.
 - Password protection for hidden files and folders.
 - Customizable file-hiding algorithms for enhanced security.
 - Support for hiding files and folders on external drives.
