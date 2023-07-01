@@ -21,7 +21,7 @@ namespace Files_Hider
         /// <summary>
         /// Represents the file path of a JSON file.
         /// </summary>
-        private readonly string JsonFilePath = $"{Path.GetPathRoot(Environment.GetFolderPath(Environment.SpecialFolder.Windows))}Users\\{Environment.UserName}\\data.json";
+        private readonly string JsonFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "data.json");
 
         /// <summary>
         /// Holds the data loaded from the JSON file.
@@ -690,7 +690,13 @@ namespace Files_Hider
             LoadData();
         }
 
-        private async void listView_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
+
+        /// <summary>
+        /// Updates the tooltip with folder details: type, size, and modification date if the hovered item is a folder.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void ListView_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
         {
             if (e.Item != null)
             {
@@ -710,5 +716,6 @@ namespace Files_Hider
                 }
             }
         }
+
     }
 }

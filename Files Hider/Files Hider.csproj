@@ -98,15 +98,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\refresh-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\forward-arrow.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\back-arrow.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\properties.png" />
+    <None Include="Resources\refresh-icon.png" />
+    <None Include="Resources\remove-file-folder.png" />
+    <None Include="Resources\add-file.png" />
+    <None Include="Resources\add-folder.png" />
     <Content Include="Resources\file-manager-codehacks.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
