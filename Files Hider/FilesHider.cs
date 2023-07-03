@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace Files_Hider
 {
@@ -605,44 +606,6 @@ namespace Files_Hider
 
 
         /// <summary>
-        /// Opens the selected file or navigates to the selected directory.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ListView_ItemActivate(object sender, EventArgs e)
-        {
-            try
-            {
-                // Cast the sender object to a ListView
-                ListView listView = sender as ListView;
-
-                // Check if an item is selected and retrieve its associated path
-                if (listView.SelectedItems[0].Tag is string path)
-                {
-                    // Check if the path corresponds to a file
-                    if (File.Exists(path))
-                    {
-                        // Open the file using the default program associated with its file type
-                        Process.Start(path);
-                    }
-                    else
-                    {
-                        // Navigate to the selected directory
-                        NavigateToDirectory(path);
-                        // Update the address bar text with the selected directory path
-                        addressBar.Text = path;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Display an error message box if an exception occurs
-                MessageBox.Show($"An error occurred while opening the file or directory: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-
-        /// <summary>
         /// Sets the drag-and-drop effect to Copy if file data is being dragged.
         /// </summary>
         /// <param name="sender">The event sender.</param>
@@ -739,5 +702,71 @@ namespace Files_Hider
             }
         }
 
+
+        /// <summary>
+        /// ShortCut Keys.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A KeyEventArgs that contains the event data.</param>
+        private void ListView_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Check if the Enter key is pressed along with the Alt key
+            if (e.KeyCode == Keys.Enter && e.Alt)
+            {
+                // Execute the logic to open properties
+                PropertiesToolStripMenuItem_Click(sender, e);
+            }
+            // Check if only the Enter key is pressed
+            else if (e.KeyCode == Keys.Enter)
+            {
+                // Execute the logic for double-clicking the ListView
+                ListView_DoubleClick(sender, e);
+            }
+            // Check if the Backspace key is pressed
+            else if (e.KeyCode == Keys.Back)
+            {
+                // Execute the logic for clicking the Back button
+                BackButton_Click(sender, e);
+            }
+        }
+
+
+        /// <summary>
+        /// Opens the selected file or navigates to the selected directory.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListView_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (listView.SelectedItems.Count > 0)
+                {
+
+                    // Check if an item is selected and retrieve its associated path
+                    if (listView.SelectedItems[0].Tag is string path)
+                    {
+                        // Check if the path corresponds to a file
+                        if (File.Exists(path))
+                        {
+                            // Open the file using the default program associated with its file type
+                            Process.Start(path);
+                        }
+                        else
+                        {
+                            // Navigate to the selected directory
+                            NavigateToDirectory(path);
+                            // Update the address bar text with the selected directory path
+                            addressBar.Text = path;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Display an error message box if an exception occurs
+                MessageBox.Show($"An error occurred while opening the file or directory: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

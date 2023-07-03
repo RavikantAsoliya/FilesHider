@@ -211,11 +211,12 @@
             this.listView.Size = new System.Drawing.Size(684, 250);
             this.listView.TabIndex = 3;
             this.listView.UseCompatibleStateImageBehavior = false;
-            this.listView.ItemActivate += new System.EventHandler(this.ListView_ItemActivate);
             this.listView.ItemMouseHover += new System.Windows.Forms.ListViewItemMouseHoverEventHandler(this.ListView_ItemMouseHover);
             this.listView.SelectedIndexChanged += new System.EventHandler(this.ListView_SelectedIndexChanged);
             this.listView.DragDrop += new System.Windows.Forms.DragEventHandler(this.ListView_DragDrop);
             this.listView.DragEnter += new System.Windows.Forms.DragEventHandler(this.ListView_DragEnter);
+            this.listView.DoubleClick += new System.EventHandler(this.ListView_DoubleClick);
+            this.listView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListView_KeyDown);
             // 
             // contextMenuStrip
             // 
