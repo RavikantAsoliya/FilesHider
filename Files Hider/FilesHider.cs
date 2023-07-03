@@ -18,6 +18,8 @@ namespace Files_Hider
 {
     public partial class FilesHider : Form
     {
+        private readonly List<string> clipboardPathList = new List<string>();
+
         /// <summary>
         /// Represents the file path of a JSON file.
         /// </summary>
@@ -714,6 +716,26 @@ namespace Files_Hider
                         $"Size: {folderSize}\n" +
                         $"Date Modified: {new DirectoryInfo(path).LastWriteTime}";
                 }
+            }
+        }
+
+
+        /// <summary>
+        /// Displays the properties of the selected items in a separate form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PropertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listView.SelectedItems.Count > 0) // Check if any item is selected in the listView
+            {
+                clipboardPathList.Clear(); // Clear the clipboardPathList to prepare for new selections
+                foreach (ListViewItem item in listView.SelectedItems) // Loop through each selected item
+                {
+                    clipboardPathList.Add(item.Tag.ToString()); // Add the Tag property of the selected item to the clipboardPathList
+                }
+                PropertiesForm propertiesForm = new PropertiesForm(clipboardPathList); // Create a new instance of PropertiesForm and pass the clipboardPathList as a parameter
+                propertiesForm.ShowDialog(); // Show the PropertiesForm as a modal dialog
             }
         }
 

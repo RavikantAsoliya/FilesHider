@@ -17,17 +17,42 @@ namespace Files_Hider.Helper
         /// <returns>The file type based on the list.</returns>
         public static string GetFileType(List<string> ListOfFilesAndFolders)
         {
-            // Check if all items are files or all items are folders
+            // Check if all items in the list exist as files
             bool allFiles = ListOfFilesAndFolders.All(File.Exists);
+
+            // Check if all items in the list exist as folders
             bool allFolders = ListOfFilesAndFolders.All(Directory.Exists);
 
-            // If all items are files and have the same extension, return the file type based on the extension
-            // If all items are folders, return the folder type message
-            // If the list contains multiple types, return the message for multiple types
-            return allFiles && ListOfFilesAndFolders.All(item => Path.GetExtension(item) == Path.GetExtension(ListOfFilesAndFolders.First()))
-                ? GetFileTypeByExtension(Path.GetExtension(ListOfFilesAndFolders.First())) != null ? $"All of type {GetFileTypeByExtension(Path.GetExtension(ListOfFilesAndFolders.First()))}" : $"All of type {GetFileTypeByExtension(Path.GetExtension(ListOfFilesAndFolders.First()))} File"
-                : allFolders ? "All of Type File folder" : "Multiple Types";
+            // Check if the list contains more than one item
+            if (ListOfFilesAndFolders.Count > 1)
+            {
+                // Check if all items in the list are files and have the same extension
+                if (allFiles && ListOfFilesAndFolders.All(item => Path.GetExtension(item) == Path.GetExtension(ListOfFilesAndFolders.First())))
+                {
+                    // Get the file extension of the first item in the list
+                    string fileExtension = Path.GetExtension(ListOfFilesAndFolders.First());
+
+                    // Get the file type based on the extension
+                    string fileType = GetFileTypeByExtension(fileExtension);
+
+                    // Return the file type if it exists, otherwise return the file extension with a label
+                    return fileType != null ? $"All of type {fileType}" : $"All of type {fileExtension} File";
+                }
+
+                // Check if all items in the list are folders
+                return allFolders ? "All of Type File folder" : "Multiple Types";
+            }
+
+            // Get the first item in the list
+            string fileOrFolder = ListOfFilesAndFolders[0];
+
+            // Check if the item exists as a file, and return its type if it does
+            // Otherwise, return "File Folder" to indicate it's a folder
+            return File.Exists(fileOrFolder) ? GetFileTypeByExtension(Path.GetExtension(fileOrFolder)) : "File Folder";
         }
+
+
+
 
         /// <summary>
         /// Gets the file type based on the file extension.
