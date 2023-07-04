@@ -728,6 +728,10 @@ namespace Files_Hider
                 // Execute the logic for clicking the Back button
                 BackButton_Click(sender, e);
             }
+            else if (e.KeyCode == Keys.F5)
+            {
+                RefreshButton_Click(sender, e);
+            }
         }
 
 
